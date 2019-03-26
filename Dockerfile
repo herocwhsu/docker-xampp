@@ -54,7 +54,9 @@ EXPOSE 22
 EXPOSE 80
 
 # write a startup script
+#TODO, some permission issue when sql up
+#RUN echo 'chown -R mysql /opt/lampp/var/mysql_data' >> /startup.sh
 RUN echo '/opt/lampp/lampp start' >> /startup.sh
 RUN echo '/usr/bin/supervisord -n' >> /startup.sh
-
+COPY my.cnf /opt/lampp/etc
 CMD ["sh", "/startup.sh"]
