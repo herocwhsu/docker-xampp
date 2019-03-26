@@ -1,0 +1,30 @@
+version: '3.2'
+
+services:
+
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: xampp
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+
+  xampp:
+    image: xampp.stretch
+    container_name: xampp
+    restart: always
+    ports:
+      - "3306:3306"
+      - "41061:22"
+      - "41062:80"
+    volumes:
+      - "/mnt/docker.apps/www:/www"
+      - "/mnt/docker.apps/apache2.conf.d:/opt/lampp/apache2/conf.d"
+      - type: bind
+        source: /mnt/docker.apps/db/mysql
+        target: /opt/lampp/var/mysql_data
